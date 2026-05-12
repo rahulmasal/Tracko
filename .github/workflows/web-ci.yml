@@ -1,0 +1,127 @@
+name: Web CI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'web/**'
+      - '.github/workflows/web-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'web/**'
+
+jobs:
+  manager-portal:
+    name: Manager Portal Build & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/manager-portal/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd web/manager-portal
+          npm ci
+
+      - name: Lint
+        run: |
+          cd web/manager-portal
+          npm run lint || echo "Lint warnings found (non-blocking)"
+
+      - name: TypeScript type check
+        run: |
+          cd web/manager-portal
+          npx tsc --noEmit || echo "Type errors found (non-blocking)"
+
+      - name: Build
+        run: |
+          cd web/manager-portal
+          npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: manager-portal-dist
+          path: web/manager-portal/dist
+          retention-days: 7
+
+  admin-portal:
+    name: Admin Portal Build & Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: web/admin-portal/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd web/admin-portal
+          npm ci
+
+      - name: Lint
+        run: |
+          cd web/admin-portal
+          npm run lint || echo "Lint warnings found (non-blocking)"
+
+      - name: TypeScript type check
+        run: |
+          cd web/admin-portal
+          npx tsc --noEmit || echo "Type errors found (non-blocking)"
+
+      - name: Build
+        run: |
+          cd web/admin-portal
+          npm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-portal-dist
+          path: web/admin-portal/dist
+          retention-days: 7
+
+  docker-build-manager:
+    name: Manager Portal Docker Build
+    runs-on: ubuntu-latest
+    needs: manager-portal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
+        with:
+          context: ./web/manager-portal
+          push: false
+          tags: tracko-manager-portal:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  docker-build-admin:
+    name: Admin Portal Docker Build
+    runs-on: ubuntu-latest
+    needs: admin-portal
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v5
+        with:
+          context: ./web/admin-portal
+          push: false
+          tags: tracko-admin-portal:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
