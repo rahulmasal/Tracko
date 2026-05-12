@@ -42,6 +42,11 @@ jobs:
           cd web/manager-portal
           npx tsc --noEmit || echo "Type errors found (non-blocking)"
 
+      - name: Run tests
+        run: |
+          cd web/manager-portal
+          npm test -- --coverage --watchAll=false 2>&1 || echo "Tests failed"
+
       - name: Build
         run: |
           cd web/manager-portal
@@ -83,6 +88,11 @@ jobs:
         run: |
           cd web/admin-portal
           npx tsc --noEmit || echo "Type errors found (non-blocking)"
+
+      - name: Run tests
+        run: |
+          cd web/admin-portal
+          npm test -- --coverage --watchAll=false 2>&1 || echo "Tests failed"
 
       - name: Build
         run: |

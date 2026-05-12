@@ -22,14 +22,15 @@ services:
     restart: unless-stopped
     ports:
       - "9000:9000"
+      - "9001:9001"
     environment:
       MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-tracko_admin}
       MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-tracko_minio_2024}
     volumes:
       - minio-data:/data
-    command: server /data
+    command: server /data --console-address ":9001"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      test: ["CMD", "wget", "--tries=1", "--spider", "http://localhost:9000/minio/health/live"]
       interval: 30s
       timeout: 10s
       retries: 3

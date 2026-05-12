@@ -9,8 +9,14 @@ BEGIN
 END
 $$;
 
--- Create database (must be run outside transaction block, so executed separately)
--- CREATE DATABASE tracko_db WITH OWNER tracko_user ENCODING 'UTF8' LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8' TEMPLATE template0;
+-- Create database
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_database WHERE datname = 'tracko_db') THEN
+        CREATE DATABASE tracko_db WITH OWNER tracko_user ENCODING 'UTF8' LC_COLLATE 'en_US.UTF-8' LC_CTYPE 'en_US.UTF-8' TEMPLATE template0;
+    END IF;
+END
+$$;
 
 -- Grant permissions
 GRANT ALL PRIVILEGES ON DATABASE tracko_db TO tracko_user;

@@ -21,7 +21,7 @@ app:
     local:
       upload-dir: ./uploads
   jwt:
-    secret: devSecretKeyDoNotUseInProduction12345678901234567890
+    secret: ${JWT_SECRET:devSecretKeyDoNotUseInProduction123456789012345678901234567890}
 
 logging:
   level:
