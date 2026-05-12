@@ -8,6 +8,12 @@
   <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin"/>
 </p>
 
+<!-- GitHub Metadata -->
+<!--
+Tracko is a real-time field engineer management system built with Spring Boot and React.
+It provides GPS tracking, attendance automation, visit scheduling, quotation management, and performance scorecards for field service operations.
+-->
+
 <h1 align="center">Tracko</h1>
 <p align="center">
   <strong>Field Engineer Management System</strong><br>
@@ -15,11 +21,19 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/rahulmasal/Tracko/stargazers"><img src="https://img.shields.io/github/stars/rahulmasal/tracko?style=social" alt="GitHub Stars"/></a>
+  <a href="https://github.com/rahulmasal/Tracko/network/members"><img src="https://img.shields.io/github/forks/rahulmasal/tracko?style=social" alt="GitHub Forks"/></a>
+  <a href="https://github.com/rahulmasal/Tracko/issues"><img src="https://img.shields.io/github/issues/rahulmasal/tracko?style=social" alt="GitHub Issues"/></a>
+  <a href="https://github.com/rahulmasal/Tracko/blob/main/LICENSE"><img src="https://img.shields.io/github/license/rahulmasal/tracko" alt="License"/></a>
+</p>
+
+<p align="center">
   <a href="#-features">Features</a> •
   <a href="#-tech-stack">Tech Stack</a> •
   <a href="#-architecture">Architecture</a> •
   <a href="#-quick-start">Quick Start</a> •
-  <a href="#-project-structure">Structure</a>
+  <a href="#-project-structure">Structure</a> •
+  <a href="#-about">About</a>
 </p>
 
 ---
@@ -175,7 +189,7 @@ sequenceDiagram
 ### Docker (Recommended)
 
 ```bash
-git clone https://github.com/your-org/tracko.git
+git clone https://github.com/rahulmasal/Tracko.git
 cd tracko
 cp .env.example .env
 docker compose up -d
@@ -281,6 +295,46 @@ Available via Swagger UI when the backend is running:
 
 - **Swagger UI**: http://localhost:8080/swagger-ui.html
 - **API Docs**: http://localhost:8080/api-docs
+
+## About
+
+Tracko (pronounced "track-oh") is a **field engineer management platform** designed to bridge the gap between office-based coordination and field-level execution. It was built with a modular, scalable architecture to handle the complexities of managing distributed engineering teams.
+
+### Problem It Solves
+Field service businesses struggle with:
+- **Lack of real-time visibility** into engineer locations and activities
+- **Manual, paper-based** attendance and visit tracking
+- **Delayed communication** between field engineers and office teams
+- **Fragmented tools** for quotations, leave management, and performance tracking
+
+### How Tracko Helps
+- 📍 **Live GPS tracking** with geofencing and automated attendance
+- 📋 **Digital visit reports** with photo evidence and customer signatures
+- 💰 **Instant quotations** with configurable approval workflows
+- 📊 **Performance scorecards** with configurable scoring formulas
+- 🔔 **Real-time notifications** via push, SMS, and email
+- 🔒 **Enterprise security** with RBAC, audit logging, and device security checks
+
+### Target Users
+| Role | Portal | Key Capabilities |
+|------|--------|-----------------|
+| Field Engineer | Mobile App (Android) | Check-in/out, visit reporting, GPS tracking |
+| Team Manager | Manager Portal (React) | Team oversight, leave approvals, live map |
+| System Admin | Admin Portal (React) | User/role management, system config, audit logs |
+
+### Built With
+- **Backend:** Java 17 · Spring Boot 3.2 · PostgreSQL 15
+- **Frontend:** React 18 · TypeScript 5 · MUI 5 · Vite
+- **Mobile:** Kotlin · Jetpack Compose
+- **Infrastructure:** Docker · Nginx · Redis 7 · MinIO
+
+### Project Highlights
+- **~363 source files** · **~87K words** of code and documentation
+- **2,165 knowledge graph nodes** with **195 identified communities**
+- **18.8x query reduction** through intelligent graph-based retrieval
+- Full CI/CD with GitHub Actions for build, test, and Docker image builds
+
+---
 
 ## License
 
