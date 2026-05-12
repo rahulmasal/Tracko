@@ -1,211 +1,273 @@
-# Tracko - Field Engineer Management System
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-17%2B-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java 17+"/>
+  <img src="https://img.shields.io/badge/Spring_Boot-3.2-6DB33F?style=for-the-badge&logo=spring&logoColor=white" alt="Spring Boot 3.2"/>
+  <img src="https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React 18"/>
+  <img src="https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5"/>
+  <img src="https://img.shields.io/badge/PostgreSQL-15-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL 15"/>
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker"/>
+  <img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin"/>
+</p>
 
-A comprehensive field engineer management platform with real-time tracking, attendance management, visit scheduling, call reports, enquiry/lead management, quotation generation, leave management, and performance scorecards.
+<h1 align="center">Tracko</h1>
+<p align="center">
+  <strong>Field Engineer Management System</strong><br>
+  Real-time tracking · Attendance · Visits · Quotations · Scorecards
+</p>
 
-## Architecture
+<p align="center">
+  <a href="#-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-architecture">Architecture</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-project-structure">Structure</a>
+</p>
 
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                          Mobile App (Android)                       │
-│              (Field Engineer - Kotlin + Jetpack Compose)             │
-└─────────────────────────────┬───────────────────────────────────────┘
-                              │ HTTPS / WebSocket
-                              ▼
-┌──────────────────────────────────────────────────────────────────────┐
-│                         Nginx Reverse Proxy                          │
-│                    (Load Balancer + SSL Termination)                  │
-└──┬──────────────────────┬──────────────────────┬────────────────────┘
-   │ /manager/*            │ /admin/*              │ /api/* , /ws/*
-   ▼                       ▼                       ▼
-┌──────────────┐   ┌──────────────┐   ┌───────────────────────────┐
-│   Manager    │   │    Admin     │   │   Spring Boot Backend     │
-│   Portal     │   │   Portal     │   │   (REST API + WebSocket)  │
-│  (React/TS)  │   │  (React/TS)  │   │   Java 17 + Spring Boot  │
-│   :3000      │   │   :3001      │   │   :8080                   │
-└──────────────┘   └──────────────┘   └────┬──────────────────────┘
-                                           │
-              ┌────────────────────────────┼────────────────────────┐
-              │                            │                        │
-              ▼                            ▼                        ▼
-       ┌──────────┐                 ┌──────────┐             ┌──────────┐
-       │PostgreSQL│                 │  Redis   │             │  MinIO   │
-       │   15     │                 │    7     │             │  Object  │
-       │ :5432    │                 │ :6379    │             │ Storage  │
-       └──────────┘                 └──────────┘             │ :9000    │
-                                                            └──────────┘
-```
+---
+
+## Overview
+
+Tracko is a comprehensive platform for managing field engineer operations. It provides real-time GPS tracking, attendance management, visit scheduling, enquiry/lead management, quotation generation, leave management, and performance scorecards — all through dedicated web portals for managers and admins.
+
+## Features
+
+| Module | Capabilities |
+|--------|-------------|
+| **Live Tracking** | Real-time GPS tracking with Leaflet maps, geofencing, ping-based location updates |
+| **Attendance** | Mark-in/Mark-out with exceptions, team attendance overview, auto-reminders |
+| **Visits & Calls** | Visit scheduling, call report submission with photo attachments, pending reports review |
+| **Enquiries & Leads** | Lead capture, enquiry pipeline management, status tracking |
+| **Quotations** | PDF generation, approval workflow, timeline tracking, branded templates |
+| **Leave Management** | Leave applications, team calendar view, approval/rejection workflow |
+| **Scorecards** | Performance scoring, team rankings, configurable score formulas |
+| **Admin Panel** | User & role management, branch & shift management, security policies, audit logs, system configuration |
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Backend | Java 17, Spring Boot 3, Spring Security, JPA/Hibernate |
-| Web Portals | React 18, TypeScript, Vite, MUI 5, AG Grid, Recharts |
-| Mobile | Kotlin, Jetpack Compose, Google Maps SDK |
-| Database | PostgreSQL 15 |
-| Cache | Redis 7 |
-| Object Storage | MinIO (S3-compatible) |
-| Reverse Proxy | Nginx |
-| Containerization | Docker, Docker Compose |
-| CI/CD | GitHub Actions |
+```mermaid
+mindmap
+  root((Tracko))
+    Frontend
+      React 18
+      TypeScript 5
+      Vite
+      MUI 5
+      Zustand
+      React Query
+      AG Grid
+      Recharts
+      Leaflet
+      react-hook-form
+      Zod
+    Backend
+      Java 17
+      Spring Boot 3.2
+      Spring Security
+      JPA / Hibernate
+      Flyway
+      MapStruct
+      JWT
+      Swagger / OpenAPI
+      Quartz Scheduler
+      iText PDF
+      Apache POI
+      Twilio SMS
+      Firebase Push
+    Mobile
+      Kotlin
+      Jetpack Compose
+      Google Maps SDK
+    Data &amp; Infra
+      PostgreSQL 15
+      Redis 7
+      MinIO S3
+      Nginx
+      Docker
+      GitHub Actions
+```
 
-## Prerequisites
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph Clients["Clients"]
+        Mobile["📱 Mobile App<br/>Kotlin · Jetpack Compose"]
+        Manager["👔 Manager Portal<br/>React 18 · TypeScript<br/>:3000"]
+        Admin["⚙️ Admin Portal<br/>React 18 · TypeScript<br/>:3001"]
+    end
+
+    subgraph Proxy["Reverse Proxy"]
+        Nginx["🌐 Nginx<br/>SSL · Load Balancer"]
+    end
+
+    subgraph Backend["Backend"]
+        API["☕ Spring Boot API<br/>Java 17 · REST · WebSocket<br/>:8080"]
+    end
+
+    subgraph Storage["Data Layer"]
+        DB[("🗄️ PostgreSQL 15<br/>:5432")]
+        Cache[("⚡ Redis 7<br/>:6379")]
+        ObjectStore[("📦 MinIO S3<br/>:9000")]
+    end
+
+    Mobile -->|HTTPS / WebSocket| Nginx
+    Manager -->|HTTPS| Nginx
+    Admin -->|HTTPS| Nginx
+
+    Nginx -->|/api/* /ws/*| API
+    Nginx -->|/manager/*| Manager
+    Nginx -->|/admin/*| Admin
+
+    API --> DB
+    API --> Cache
+    API --> ObjectStore
+
+    style Clients fill:#e1f5fe,stroke:#0288d1
+    style Proxy fill:#fff3e0,stroke:#f57c00
+    style Backend fill:#e8f5e9,stroke:#388e3c
+    style Storage fill:#fce4ec,stroke:#d32f2f
+```
+
+## Data Flow
+
+```mermaid
+sequenceDiagram
+    participant E as Field Engineer
+    participant M as Manager Portal
+    participant A as Admin Portal
+    participant API as Backend API
+    participant DB as PostgreSQL
+    participant R as Redis
+    participant S as MinIO
+
+    Note over E,S: Attendance Flow
+    E->>API: Mark-in with GPS location
+    API->>DB: Save attendance record
+    API->>R: Cache active status
+    API-->>M: Push live update (WebSocket)
+
+    Note over E,S: Visit Flow
+    M->>API: Assign visit to engineer
+    API->>DB: Create visit record
+    API-->>E: Push notification (FCM)
+    E->>API: Submit call report + photos
+    API->>S: Store photo attachments
+    API->>DB: Update visit status
+    API-->>M: Notify report ready for review
+
+    Note over E,S: Quotation Flow
+    E->>API: Generate quotation
+    API->>S: Create PDF
+    API->>DB: Save quotation data
+    API-->>M: Push approval request
+    M->>API: Approve / reject
+    API-->>E: Notify decision
+```
+
+## Quick Start
+
+### Prerequisites
 
 - Java 17+
 - Node.js 20+
 - Docker & Docker Compose
-- Android Studio (for mobile development)
-- PostgreSQL 15 (local development without Docker)
+- PostgreSQL 15 (for local dev without Docker)
 
-## Quick Start (Docker)
+### Docker (Recommended)
 
 ```bash
-# Clone the repository
 git clone https://github.com/your-org/tracko.git
 cd tracko
-
-# Copy environment configuration
 cp .env.example .env
-
-# Start all services
-docker-compose up -d
-
-# Wait for services to initialize, then access:
-# Manager Portal:  http://localhost:3000
-# Admin Portal:    http://localhost:3001
-# API:             http://localhost:8080/api
+docker compose up -d
 ```
 
-## Development Setup
+| Service | URL |
+|---------|-----|
+| Manager Portal | http://localhost:3000 |
+| Admin Portal | http://localhost:3001 |
+| API | http://localhost:8080/api |
+| Swagger UI | http://localhost:8080/swagger-ui.html |
 
-### Backend
+### Local Development
+
+**Backend**
 
 ```bash
 cd backend
-
-# Build and run
 ./mvnw spring-boot:run
-
-# Or build JAR and run
-./mvnw clean package -DskipTests
-java -jar target/tracko-backend-*.jar
 ```
 
-### Web Portals
+**Web Portals**
 
 ```bash
-# Manager Portal
 cd web/manager-portal
-npm install
-npm run dev          # http://localhost:3000
+npm install && npm run dev
 
-# Admin Portal
-cd web/admin-portal
-npm install
-npm run dev          # http://localhost:3001
+cd web/admin-portal   # separate terminal
+npm install && npm run dev
 ```
 
-### Mobile App
+**Mobile App**
 
 Open `android/` in Android Studio and run on device or emulator.
 
 ## Project Structure
 
-```
-tracko/
-├── backend/                    # Spring Boot Backend
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/com/tracko/
-│   │   │   │   ├── config/         # Security, WebSocket, CORS config
-│   │   │   │   ├── controller/     # REST controllers
-│   │   │   │   ├── dto/            # Data Transfer Objects
-│   │   │   │   ├── entity/         # JPA entities
-│   │   │   │   ├── repository/     # Spring Data repositories
-│   │   │   │   ├── service/        # Business logic
-│   │   │   │   └── TrackoApplication.java
-│   │   │   └── resources/
-│   │   │       └── application.yml
-│   │   └── test/
-│   └── pom.xml
-│
-├── web/
-│   ├── manager-portal/         # Manager React SPA
-│   │   ├── src/
-│   │   │   ├── components/     # Dashboard, Attendance, Map, etc.
-│   │   │   ├── pages/         # Route pages
-│   │   │   ├── services/      # API service layer
-│   │   │   ├── hooks/         # Zustand stores
-│   │   │   ├── utils/         # Helpers, constants
-│   │   │   └── styles/        # Theme, global CSS
-│   │   ├── Dockerfile
-│   │   └── package.json
-│   │
-│   ├── admin-portal/           # Admin React SPA
-│   │   ├── src/
-│   │   │   ├── components/     # Dashboard, Users, Config, etc.
-│   │   │   ├── pages/         # Route pages
-│   │   │   ├── services/      # API service layer
-│   │   │   └── styles/        # Theme, global CSS
-│   │   ├── Dockerfile
-│   │   └── package.json
-│   │
-│   └── shared/                 # Shared web utilities
-│       ├── components/
-│       │   └── ProtectedRoute.tsx
-│       └── utils/
-│           ├── auth.ts
-│           ├── formatting.ts
-│           └── validation.ts
-│
-├── database/
-│   ├── migrations/
-│   │   ├── V1__initial_schema.sql
-│   │   └── V2__seed_data.sql
-│   └── scripts/
-│       ├── init.sql
-│       └── backup.sh
-│
-├── docker/
-│   ├── nginx/
-│   │   └── nginx.conf
-│   └── postgres/
-│       └── init.sql
-│
-├── scripts/
-│   ├── setup-dev.bat
-│   └── setup-dev.sh
-│
-├── .github/
-│   └── workflows/
-│       ├── backend-ci.yml
-│       └── web-ci.yml
-│
-├── docker-compose.yml
-├── .env.example
-├── .gitignore
-└── README.md
-```
+```mermaid
+graph LR
+    subgraph tracko["tracko/"]
+        direction TB
+        BE["backend/<br/>Spring Boot API"]
+        WEB["web/"]
+        ANDROID["android/<br/>Kotlin App"]
+        DB["database/<br/>Migrations"]
+        DOCKER["docker/<br/>Nginx · Init"]
+        SCRIPTS["scripts/"]
+        CI[".github/workflows/<br/>CI/CD"]
+        DC["docker-compose.yml"]
+    end
 
-## Environment Variables
+    subgraph backend_detail["backend/"]
+        SRC["src/main/java/com/tracko/"]
+        POM["pom.xml"]
+    end
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `DB_HOST` | PostgreSQL host | localhost |
-| `DB_PORT` | PostgreSQL port | 5432 |
-| `DB_NAME` | Database name | tracko_db |
-| `DB_USER` | Database user | tracko_user |
-| `DB_PASSWORD` | Database password | tracko_pass_2024 |
-| `REDIS_HOST` | Redis host | localhost |
-| `REDIS_PORT` | Redis port | 6379 |
-| `MINIO_ENDPOINT` | MinIO server URL | http://localhost:9000 |
-| `MINIO_ACCESS_KEY` | MinIO access key | tracko_admin |
-| `MINIO_SECRET_KEY` | MinIO secret key | tracko_minio_2024 |
-| `JWT_SECRET` | JWT signing secret | (change in production) |
-| `FCM_SERVER_KEY` | Firebase Cloud Messaging key | (for push notifications) |
-| `TWILIO_ACCOUNT_SID` | Twilio account SID | (for SMS) |
-| `SMTP_HOST` | SMTP server | smtp.gmail.com |
-| `SMTP_PORT` | SMTP port | 587 |
+    subgraph web_detail["web/"]
+        MP["manager-portal/<br/>React 18 · :3000"]
+        AP["admin-portal/<br/>React 18 · :3001"]
+        SHARED["shared/<br/>Auth · Utils"]
+    end
+
+    subgraph java_pkg["src/main/java/com/tracko/"]
+        CFG["config/"]
+        CTRL["controller/"]
+        DTO["dto/"]
+        ENT["entity/"]
+        REPO["repository/"]
+        SVC["service/"]
+        MAIN["TrackoApplication.java"]
+    end
+
+    tracko --> BE
+    tracko --> WEB
+    tracko --> ANDROID
+    tracko --> DB
+    tracko --> DOCKER
+    tracko --> SCRIPTS
+    tracko --> CI
+    tracko --> DC
+
+    BE --> backend_detail
+    backend_detail --> SRC
+    backend_detail --> POM
+
+    WEB --> web_detail
+    web_detail --> MP
+    web_detail --> AP
+    web_detail --> SHARED
+
+    SRC --> java_pkg
+```
 
 ## Default Credentials
 
@@ -215,10 +277,11 @@ tracko/
 
 ## API Documentation
 
-API documentation is available via Swagger UI when the backend is running:
-- http://localhost:8080/swagger-ui.html
-- http://localhost:8080/api-docs
+Available via Swagger UI when the backend is running:
+
+- **Swagger UI**: http://localhost:8080/swagger-ui.html
+- **API Docs**: http://localhost:8080/api-docs
 
 ## License
 
-Proprietary - All Rights Reserved
+Proprietary — All Rights Reserved
