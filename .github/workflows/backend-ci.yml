@@ -29,6 +29,9 @@ jobs:
           POSTGRES_PASSWORD: tracko_pass_2024
         ports:
           - 5432:5432
+        volumes:
+          - ./database/migrations/V1__initial_schema.sql:/docker-entrypoint-initdb.d/V1__initial_schema.sql:ro
+          - ./database/migrations/V2__seed_data.sql:/docker-entrypoint-initdb.d/V2__seed_data.sql:ro
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

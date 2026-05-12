@@ -7,9 +7,9 @@ spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:tracko}
-    username: ${DB_USERNAME:tracko}
-    password: ${DB_PASSWORD:tracko}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:tracko_db}
+    username: ${POSTGRES_USER:tracko_user}
+    password: ${POSTGRES_PASSWORD:tracko_pass_2024}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 20
@@ -68,9 +68,9 @@ spring:
 
 app:
   jwt:
-    secret: ${JWT_SECRET:defaultSecretKeyMustBeChangedInProductionEnvironment}
-    expiration-ms: 1800000
-    refresh-expiration-ms: 604800000
+    secret: ${JWT_SECRET}
+    expiration-ms: ${JWT_EXPIRATION_MS:7200000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
   file-storage:
     type: ${FILE_STORAGE_TYPE:minio}
     minio:

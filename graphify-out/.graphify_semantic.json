@@ -1,0 +1,362 @@
+{
+  "nodes": [
+    {
+      "id": "c_users_rahul_documents_tracko_docker_compose_yml",
+      "label": "docker-compose.yml",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\docker-compose.yml",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_readme_md",
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "tracko_readme_tracko_field_engineer_management_system",
+      "label": "Tracko - Field Engineer Management System",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L1"
+    },
+    {
+      "id": "tracko_readme_architecture",
+      "label": "Architecture",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L5"
+    },
+    {
+      "id": "tracko_readme_codeblock_1",
+      "label": "code:block1 (\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L7"
+    },
+    {
+      "id": "tracko_readme_tech_stack",
+      "label": "Tech Stack",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L38"
+    },
+    {
+      "id": "tracko_readme_prerequisites",
+      "label": "Prerequisites",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L52"
+    },
+    {
+      "id": "tracko_readme_quick_start_docker",
+      "label": "Quick Start (Docker)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L60"
+    },
+    {
+      "id": "tracko_readme_codeblock_2",
+      "label": "code:bash (# Clone the repository)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L62"
+    },
+    {
+      "id": "tracko_readme_development_setup",
+      "label": "Development Setup",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L79"
+    },
+    {
+      "id": "tracko_readme_backend",
+      "label": "Backend",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L81"
+    },
+    {
+      "id": "tracko_readme_codeblock_3",
+      "label": "code:bash (cd backend)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L83"
+    },
+    {
+      "id": "tracko_readme_web_portals",
+      "label": "Web Portals",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L94"
+    },
+    {
+      "id": "tracko_readme_codeblock_4",
+      "label": "code:bash (# Manager Portal)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L96"
+    },
+    {
+      "id": "tracko_readme_mobile_app",
+      "label": "Mobile App",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L108"
+    },
+    {
+      "id": "tracko_readme_project_structure",
+      "label": "Project Structure",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L112"
+    },
+    {
+      "id": "tracko_readme_codeblock_5",
+      "label": "code:block5 (tracko/)",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L114"
+    },
+    {
+      "id": "tracko_readme_environment_variables",
+      "label": "Environment Variables",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L190"
+    },
+    {
+      "id": "tracko_readme_default_credentials",
+      "label": "Default Credentials",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L210"
+    },
+    {
+      "id": "tracko_readme_api_documentation",
+      "label": "API Documentation",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L216"
+    },
+    {
+      "id": "tracko_readme_license",
+      "label": "License",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L222"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_backend_src_main_resources_application_dev_yml",
+      "label": "application-dev.yml",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\backend\\src\\main\\resources\\application-dev.yml",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_backend_src_main_resources_application_prod_yml",
+      "label": "application-prod.yml",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\backend\\src\\main\\resources\\application-prod.yml",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_backend_src_main_resources_application_yml",
+      "label": "application.yml",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\backend\\src\\main\\resources\\application.yml",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_web_admin_portal_index_html",
+      "label": "index.html",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\web\\admin-portal\\index.html",
+      "source_location": "L1"
+    },
+    {
+      "id": "c_users_rahul_documents_tracko_web_manager_portal_index_html",
+      "label": "index.html",
+      "file_type": "document",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\web\\manager-portal\\index.html",
+      "source_location": "L1"
+    }
+  ],
+  "edges": [
+    {
+      "source": "c_users_rahul_documents_tracko_readme_md",
+      "target": "tracko_readme_tracko_field_engineer_management_system",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_architecture",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_architecture",
+      "target": "tracko_readme_codeblock_1",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_tech_stack",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L38",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_prerequisites",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L52",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_quick_start_docker",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L60",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_quick_start_docker",
+      "target": "tracko_readme_codeblock_2",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_development_setup",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_development_setup",
+      "target": "tracko_readme_backend",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L81",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_backend",
+      "target": "tracko_readme_codeblock_3",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L83",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_development_setup",
+      "target": "tracko_readme_web_portals",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_web_portals",
+      "target": "tracko_readme_codeblock_4",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L96",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_development_setup",
+      "target": "tracko_readme_mobile_app",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L108",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_project_structure",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L112",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_project_structure",
+      "target": "tracko_readme_codeblock_5",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L114",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_environment_variables",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L190",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_default_credentials",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L210",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_api_documentation",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L216",
+      "weight": 1.0
+    },
+    {
+      "source": "tracko_readme_tracko_field_engineer_management_system",
+      "target": "tracko_readme_license",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\Rahul\\Documents\\Tracko\\README.md",
+      "source_location": "L222",
+      "weight": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "input_tokens": 0,
+  "output_tokens": 0
+}

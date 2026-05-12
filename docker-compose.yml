@@ -16,6 +16,31 @@ volumes:
     driver: local
 
 services:
+  tracko-minio:
+    image: minio/minio:latest
+    container_name: tracko-minio
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-tracko_admin}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-tracko_minio_2024}
+    volumes:
+      - minio-data:/data
+    command: server /data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - tracko-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
+
   tracko-db:
     image: postgres:15-alpine
     container_name: tracko-db
@@ -23,20 +48,24 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: tracko_db
-      POSTGRES_USER: tracko_user
-      POSTGRES_PASSWORD: tracko_pass_2024
+      POSTGRES_DB: ${POSTGRES_DB:-tracko_db}
+      POSTGRES_USER: ${POSTGRES_USER:-tracko_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tracko_pass_2024}
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./database/migrations:/docker-entrypoint-initdb.d/migrations
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tracko_user -d tracko_db"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - tracko-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
 
   tracko-redis:
     image: redis:7-alpine
@@ -54,27 +83,11 @@ services:
       retries: 5
     networks:
       - tracko-network
-
-  tracko-minio:
-    image: minio/minio:latest
-    container_name: tracko-minio
-    restart: unless-stopped
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: tracko_admin
-      MINIO_ROOT_PASSWORD: tracko_minio_2024
-    volumes:
-      - minio-data:/data
-    command: server /data --console-address ":9001"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    networks:
-      - tracko-network
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+          cpus: '0.25'
 
   tracko-backend:
     build:
@@ -85,15 +98,15 @@ services:
     ports:
       - "8080:8080"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://tracko-db:5432/tracko_db
-      SPRING_DATASOURCE_USERNAME: tracko_user
-      SPRING_DATASOURCE_PASSWORD: tracko_pass_2024
+      SPRING_DATASOURCE_URL: jdbc:postgresql://tracko-db:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_REDIS_HOST: tracko-redis
       SPRING_REDIS_PORT: 6379
       MINIO_ENDPOINT: http://tracko-minio:9000
-      MINIO_ACCESS_KEY: tracko_admin
-      MINIO_SECRET_KEY: tracko_minio_2024
-      JWT_SECRET: tracko_jwt_secret_key_change_in_production_2024
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      JWT_SECRET: ${JWT_SECRET}
       APP_FILE_UPLOAD_DIR: /app/uploads
     volumes:
       - uploads:/app/uploads
@@ -106,6 +119,11 @@ services:
         condition: service_healthy
     networks:
       - tracko-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
 
   tracko-manager-portal:
     build:
