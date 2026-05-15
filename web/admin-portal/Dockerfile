@@ -3,23 +3,30 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Build context is ./web, so paths are relative to that
+COPY admin-portal/package.json admin-portal/package-lock.json ./
 RUN npm ci
 
-COPY tsconfig.json tsconfig.node.json vite.config.ts index.html ./
-COPY src ./src
-COPY ../shared ./shared
+COPY admin-portal/tsconfig.json admin-portal/tsconfig.node.json admin-portal/vite.config.ts admin-portal/index.html ./
+COPY admin-portal/src ./src
+COPY shared ./shared
 
 RUN npm run build
 
 # Runtime stage
 FROM nginx:alpine
 
-RUN apk add --no-cache curl
+RUN apk add --no-cache curl \
+    && addgroup -S tracko && adduser -S tracko -G tracko
 
 COPY --from=build /app/dist /usr/share/nginx/html
 
-COPY ../../docker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY admin-portal/nginx.conf /etc/nginx/conf.d/default.conf
+
+RUN chown -R tracko:tracko /usr/share/nginx/html \
+    && chown -R tracko:tracko /etc/nginx/conf.d
+
+USER tracko
 
 EXPOSE 80
 

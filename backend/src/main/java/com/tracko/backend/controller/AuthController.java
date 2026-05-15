@@ -3,6 +3,7 @@ package com.tracko.backend.controller;
 import com.tracko.backend.dto.*;
 import com.tracko.backend.security.CustomUserDetails;
 import com.tracko.backend.service.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -55,16 +56,16 @@ public class AuthController {
     }
 
     @PostMapping("/password/reset/request")
-    public ResponseEntity<ApiResponse<Void>> requestPasswordReset(@RequestParam String email) {
-        authService.requestPasswordReset(email);
+    public ResponseEntity<ApiResponse<Void>> requestPasswordReset(
+            @Valid @RequestBody PasswordResetRequest request) {
+        authService.requestPasswordReset(request.getEmail());
         return ResponseEntity.ok(ApiResponse.success("Password reset email sent"));
     }
 
     @PostMapping("/password/reset")
-    public ResponseEntity<ApiResponse<Void>> resetPassword(@RequestParam String email,
-                                                            @RequestParam String token,
-                                                            @RequestParam String newPassword) {
-        authService.resetPassword(email, token, newPassword);
+    public ResponseEntity<ApiResponse<Void>> resetPassword(
+            @Valid @RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request.getEmail(), request.getToken(), request.getNewPassword());
         return ResponseEntity.ok(ApiResponse.success("Password reset successful"));
     }
 
@@ -77,7 +78,19 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<Void>> logout() {
+    public ResponseEntity<ApiResponse<Void>> logout(HttpServletRequest request) {
+        String token = extractJwtFromRequest(request);
+        if (token != null) {
+            authService.logout(token);
+        }
         return ResponseEntity.ok(ApiResponse.success("Logged out successfully"));
+    }
+
+    private String extractJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }

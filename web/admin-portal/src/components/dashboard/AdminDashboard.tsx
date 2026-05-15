@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 import Alert from '@mui/material/Alert';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
-import api from '../../../manager-portal/src/services/api';
+import api from '../../../shared/services/api';
 
 export default function AdminDashboard() {
   const [data, setData] = useState<Record<string, unknown> | null>(null);

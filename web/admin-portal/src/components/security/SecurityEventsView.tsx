@@ -19,7 +19,7 @@ import Typography from '@mui/material/Typography';
 import { getSecurityEvents, resolveSecurityEvent } from '../../services/auditService';
 import DataTable from '../shared/DataTable';
 import StatusChip from '../shared/StatusChip';
-import { formatDateTime } from '../../../manager-portal/src/utils/helpers';
+import { formatDateTime } from '../../../shared/utils/formatting';
 import { useSnackbar } from 'notistack';
 
 const severityColors: Record<string, string> = {

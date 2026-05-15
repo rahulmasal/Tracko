@@ -14,18 +14,16 @@ volumes:
     driver: local
   minio-data:
     driver: local
+  uploads:
+    driver: local
 
 services:
   tracko-minio:
     image: minio/minio:latest
-    container_name: tracko-minio
     restart: unless-stopped
-    ports:
-      - "9000:9000"
-      - "9001:9001"
     environment:
-      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-tracko_admin}
-      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-tracko_minio_2024}
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY}
     volumes:
       - minio-data:/data
     command: server /data --console-address ":9001"
@@ -44,14 +42,11 @@ services:
 
   tracko-db:
     image: postgres:15-alpine
-    container_name: tracko-db
     restart: unless-stopped
-    ports:
-      - "5432:5432"
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-tracko_db}
-      POSTGRES_USER: ${POSTGRES_USER:-tracko_user}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tracko_pass_2024}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -70,15 +65,12 @@ services:
 
   tracko-redis:
     image: redis:7-alpine
-    container_name: tracko-redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
-    command: redis-server --appendonly yes
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -94,16 +86,14 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: tracko-backend
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://tracko-db:5432/${POSTGRES_DB}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
       SPRING_REDIS_HOST: tracko-redis
       SPRING_REDIS_PORT: 6379
+      SPRING_REDIS_PASSWORD: ${REDIS_PASSWORD}
       MINIO_ENDPOINT: http://tracko-minio:9000
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
@@ -128,12 +118,9 @@ services:
 
   tracko-manager-portal:
     build:
-      context: ./web/manager-portal
-      dockerfile: Dockerfile
-    container_name: tracko-manager-portal
+      context: ./web
+      dockerfile: manager-portal/Dockerfile
     restart: unless-stopped
-    ports:
-      - "3000:80"
     depends_on:
       - tracko-backend
     networks:
@@ -142,12 +129,9 @@ services:
 
   tracko-admin-portal:
     build:
-      context: ./web/admin-portal
-      dockerfile: Dockerfile
-    container_name: tracko-admin-portal
+      context: ./web
+      dockerfile: admin-portal/Dockerfile
     restart: unless-stopped
-    ports:
-      - "3001:80"
     depends_on:
       - tracko-backend
     networks:
@@ -156,7 +140,6 @@ services:
 
   tracko-nginx:
     image: nginx:alpine
-    container_name: tracko-nginx
     restart: unless-stopped
     ports:
       - "80:80"
@@ -170,7 +153,3 @@ services:
     networks:
       - tracko-public
       - tracko-network
-
-volumes:
-  uploads:
-    driver: local

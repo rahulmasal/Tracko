@@ -10,6 +10,7 @@ import com.tracko.backend.model.User;
 import com.tracko.backend.repository.UserRepository;
 import com.tracko.backend.security.CustomUserDetails;
 import com.tracko.backend.security.JwtTokenProvider;
+import com.tracko.backend.security.TokenBlacklistService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +36,7 @@ public class AuthService {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final TokenBlacklistService tokenBlacklistService;
 
     @Value("${app.security.max-login-attempts:5}")
     private int maxLoginAttempts;
@@ -144,6 +146,19 @@ public class AuthService {
         user.setFailedAttempts(0);
         user.setIsLocked(false);
         userRepository.save(user);
+    }
+
+    /**
+     * Logout by blacklisting the current JWT token.
+     */
+    public void logout(String token) {
+        try {
+            long expirationMs = jwtTokenProvider.getExpirationMs();
+            tokenBlacklistService.blacklist(token, expirationMs);
+            log.info("Token blacklisted on logout");
+        } catch (Exception e) {
+            log.error("Failed to blacklist token on logout: {}", e.getMessage());
+        }
     }
 
     @Transactional

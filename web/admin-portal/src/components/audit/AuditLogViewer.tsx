@@ -17,7 +17,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { getAuditLogs } from '../../services/auditService';
 import DataTable from '../shared/DataTable';
-import { formatDateTime } from '../../../manager-portal/src/utils/helpers';
+import { formatDateTime } from '../../../shared/utils/formatting';
 import { format } from 'date-fns';
 
 export default function AuditLogViewer() {

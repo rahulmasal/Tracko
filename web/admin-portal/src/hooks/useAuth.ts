@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { login as apiLogin, logout as apiLogout, getProfile } from '../../manager-portal/src/services/authService';
+import { login as apiLogin, logout as apiLogout, getProfile } from '../services/authService';
 import { getToken, clearToken } from '../../shared/utils/auth';
 
 interface User {
