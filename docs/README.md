@@ -14,7 +14,7 @@ Tracko is a field engineer management platform that provides end-to-end operatio
 Mobile (Kotlin/Jetpack Compose)
         │
         ▼
-Nginx Reverse Proxy (SSL, Rate Limiting)
+Nginx Reverse Proxy (SSL, Rate Limiting, CSP/HSTS)
         │
         ▼
 Spring Boot API (Java 17, REST + WebSocket)
@@ -22,7 +22,7 @@ Spring Boot API (Java 17, REST + WebSocket)
    ┌────┼────────┐
    ▼    ▼        ▼
 PostgreSQL  Redis  MinIO
-  :5432    :6379  :9000
+ (internal) (auth) (internal)
 ```
 
 ## Key Features

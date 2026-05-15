@@ -285,9 +285,14 @@ graph LR
 
 ## Default Credentials
 
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@tracko.com | Admin@123 |
+No default credentials are shipped. On first run, create an admin user:
+
+```bash
+# Via the API or database seed script
+docker compose exec tracko-backend java -jar app.jar --create-admin
+```
+
+Or set up initial users through the Admin Portal after first login.
 
 ## API Documentation
 
